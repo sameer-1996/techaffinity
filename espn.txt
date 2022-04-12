@@ -1,0 +1,69 @@
+package com.selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class espn {
+public WebDriver esp;
+
+@BeforeTest
+  public void launchBrowser() throws InterruptedException 
+	{
+	System.setProperty("webdriver.chrome.driver","D:\\sameer\\chromedriver.exe");
+	esp=new ChromeDriver();
+	esp.get("https://www.espn.in/");
+	}
+
+  @Test
+  public void signuppage() {
+	
+//signup	
+	esp.findElement(By.linkText("Sign Up")).click(); 
+	esp.findElement(By.name("firstName")).sendKeys("Vijay");
+	esp.findElement(By.name("lastName")).sendKeys("Kumar");
+	esp.findElement(By.name("email")).sendKeys("vijaykumar1212@gmail.com");
+	esp.findElement(By.name("newPassword")).sendKeys("Vijaykumar@");  
+	esp.findElement(By.linkText("Sign Up")).click();
+	esp.findElement(By.linkText("signOut")).click();
+	Thread.sleep(2000); 
+	//esp.navigate().back(); 
+
+//login
+	esp.findElement(By.linkText("log In")).click();
+	esp.findElement(By.className("ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-touched")).sendKeys("vijaykumar1212@gmail.com");
+	esp.findElement(By.className("ng-pristine ng-invalid ng-invalid-required ng-touched")).sendKeys("Vijaykumar@");
+	esp.findElement(By.linkText("log In")).click();
+	Thread.sleep(2000);
+
+//search
+
+	esp.findElement(By.id("global-search-input")).sendKeys("cricket");
+	esp.findElement(By.className("btn-search")).click();
+
+//follow
+	esp.findElement(By.className("Button Button--default Nav__User__Favorites__Edit absolute clr-link n8")).click();
+	esp.findElement(By.className("Button Button--sm Button--alt")).click();
+			}
+
+
+ @AfterTest
+ public void closeBrowser()
+ {
+	 
+  esp.close();
+	
+  
+  }
+}
+
+
+
+
+
+
